@@ -1,0 +1,5 @@
+Ctrl+A
+Ctrl+C
+Ctrl+V
+Ctrl+Z
+ctrl+A

@@ -1,0 +1,4 @@
+ctrl+a : move    ctrl+m, f6, 
+ctrl+c : copy    ctrl+c, f5, 
+ctrl+l : dadadad
+ctrl+v : search  ctrl+v, f7, 
