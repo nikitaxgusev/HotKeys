@@ -1,3 +1,4 @@
-move    Ctrl+M, F6, 
-copy    Ctrl+C, F5, 
-search  Ctrl+V, F7, 
+Ctrl+A
+Ctrl+C
+Ctrl+V
+Ctrl+Z
