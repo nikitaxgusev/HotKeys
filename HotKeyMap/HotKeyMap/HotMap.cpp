@@ -4,6 +4,17 @@
 #include <cstring>
 
 
+std::vector<std::string> HotMap::get_it()
+{
+	std::string line;
+	std::vector<std::string> v;
+	std::ifstream file("out.txt");
+	while (std::getline(file, line))
+		v.push_back(line);
+
+	return std::vector<std::string>(v);
+}
+
 std::vector<std::string> HotMap::get_cmds(void) const
 {	
 	//Almost the same method as get_keys() is but the deffirence is that , its reading from another file
@@ -65,11 +76,11 @@ std::vector<std::string> HotMap::get_keys(void) const
 
 bool HotMap::add_pair(std::string hot_key,std::string cmd)
 {
-	//This very method ad key and check for the same variant, that's why I use pair<>..
+	//This very method add key and check for the same variant, that's why I use pair<>..
 	//In order to check if the key exists or not.No? Write in a file a new one. 
 
 
-	for (auto & k : hot_key) k = tolower(k);									//In order to create the right order in a file and in a process writting 																		//All letters are with lower registr
+	for (auto & k : hot_key) k = tolower(k);								//In order to create the right order in a file and in a process writting 																		//All letters are with lower registr
 																			//That's why ctrl+a or CTRL+A or Ctrl+A is the sam
 	for (auto & v : cmd) v = tolower(v);									//just the right order all are lower, not special
 
@@ -122,7 +133,7 @@ size_t HotMap::add_cmd(std::string cmd, std::vector<std::string> keys)
 	}
 
 	std::string found_str;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < vec_keys.size(); i++)
 	{
 		if (vec_keys[i].find(cmd) != std::string::npos)
 		{
@@ -164,7 +175,7 @@ void HotMap::mapping(std::vector<std::string> v1, std::vector<std::string> v2)
 	std::string value;
 
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < v1.size(); i++)
 	{
 		key = v1[i];														//take a key 
 		for (auto & c : key) c = tolower(c);								// lower it for the rigth structure	
@@ -216,7 +227,7 @@ bool HotMap::remove_cmd(std::string str)
 		}
 
 		std::string found_str;
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < vec_keys.size(); i++)
 		{
 			if (vec_keys[i].find(str) != std::string::npos)
 			{
@@ -245,6 +256,71 @@ bool HotMap::remove_cmd(std::string str)
 		return false;
 		
 }
+
+HotMap HotMap::copy(void) const
+{
+	HotMap h;
+	std::vector<std::string> vec_cmds;
+	std::vector<std::string> vec_keys;
+
+	vec_cmds = h.get_cmds();
+	std::cout << std::endl;
+	vec_keys = h.get_keys();
+
+	std::cout << "Mapping:" << std::endl;
+	h.mapping(vec_cmds, vec_keys);
+	return HotMap(h);
+}
+
+std::vector<std::string> HotMap::merge(const HotMap & map)
+{
+	std::ifstream file_hot("read_keys.txt", std::ios::in);
+	std::ifstream file_keys("read_cmds.txt", std::ios::in);
+
+
+	std::vector<std::string> v_key;
+	std::vector<std::string> v_cmds;
+	std::vector<std::string> v_res;
+
+	std::map<std::string,std::string>::iterator iter;
+
+	std::string key;
+	std::string value;
+
+	v_key=map.get_keys();
+	v_cmds=map.get_cmds();
+	std::map<std::string, std::string> myMap;
+	std::cout << "size: " << v_key.size() << std::endl;
+	
+	for (int i = 0; i < v_cmds.size(); i++)
+	{
+		key = v_cmds[i];														//take a key 
+		for (auto & c : key) c = tolower(c);								// lower it for the rigth structure	
+		value = v_key[i];														// take a value for a key
+		for (auto & s : value) s = tolower(s);								// lower it too
+		myMap[key] = value;													// now keys gets their values 
+	
+	}
+
+	for(iter=myMap.begin();iter!=myMap.end();iter++)
+		std::cout << iter->first << " : " << iter->second << std::endl;
+
+	if (v_cmds.size() == v_key.size())
+	{
+		std::cout << "No conflicts" << std::endl;
+	}
+	else
+	{
+		for (int i = v_cmds.size(); i < v_key.size(); i++)
+		{
+			std::cout <<"Conflict: "<< v_key[i] << std::endl;
+			v_res.push_back(v_key[i]);
+		}
+	}
+
+	return std::vector<std::string>(v_res);
+}
+
 
 bool HotMap::remove_key(std::string str)
 {
@@ -278,4 +354,41 @@ bool HotMap::remove_key(std::string str)
 		std::cout << "The key wasn't found" << std::endl;
 		return false;
 	}
+}
+std::string & HotMap::operator[](std::string  key)
+{
+	std::string none1 = "None1";
+	std::vector<std::string>::iterator iter_vec;
+	std::string found_str;
+	std::cout << vec.size() << std::endl;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		if (vec[i].find(key) != std::string::npos)
+		{
+
+			found_str = vec[i];
+			std::cout << "" << found_str << std::endl;
+			iter_vec = std::find(vec.begin(), vec.end(), found_str);
+			std::cout << "<:" << *iter_vec << std::endl;
+
+			if (iter_vec != vec.end())
+			{
+				std::string l = *iter_vec;
+				return vec[i];
+
+			}
+			else
+			{
+
+				return vec1[0];
+			}
+		}
+		else
+		{
+			return vec1[0];
+		}
+
+	}
+	std::string none = "None";
+	return vec1[0];
 }

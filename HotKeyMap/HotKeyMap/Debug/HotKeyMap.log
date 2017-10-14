@@ -1,3 +1,11 @@
-﻿  HotMap.cpp
+﻿  Source.cpp
+  HotMap.cpp
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(136): warning C4018: '<': signed/unsigned mismatch
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(178): warning C4018: '<': signed/unsigned mismatch
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(230): warning C4018: '<': signed/unsigned mismatch
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(295): warning C4018: '<': signed/unsigned mismatch
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(314): warning C4018: '<': signed/unsigned mismatch
+b:\hot key\hotkeymap\hotkeymap\hotmap.cpp(364): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   HotKeyMap.vcxproj -> B:\hot key\HotKeyMap\Debug\HotKeyMap.exe
   HotKeyMap.vcxproj -> B:\hot key\HotKeyMap\Debug\HotKeyMap.pdb (Full PDB)

@@ -1,4 +1,5 @@
 Ctrl+A
 Ctrl+C
 Ctrl+V
-Ctrl+Z
+Ctrl+Z, shift+del+f5
+ctrl+k

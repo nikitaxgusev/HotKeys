@@ -1,3 +1,4 @@
 copy : ctrl+c
 move : ctrl+a
+paste : ctrl+z, shift+del+f5
 search  : ctrl+v
